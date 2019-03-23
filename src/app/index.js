@@ -33,10 +33,15 @@
 
 import { createStore } from 'redux';
 
-const reducer = (state, action) => {
+const initialState = {
+    result: 1, 
+    lastValues: []
+};
+
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case "ADD":
-            state = state + action.payload;
+            state.result += action.payload;
             break;
         case "SUBTRACT":
             state = state - action.payload;
@@ -44,7 +49,7 @@ const reducer = (state, action) => {
     return state;
 };
 
-const store = createStore(reducer, 1); // 1 is thess initial state
+const store = createStore(reducer); // 1 is thess initial state
 
 store.subscribe(() => {
     console.log("Store updated", store.getState());
