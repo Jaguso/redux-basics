@@ -44,12 +44,13 @@ const reducer = (state, action) => {
     return state;
 };
 
-const store = createStore(reducer, 1); // initial state
+const store = createStore(reducer, 1); // 1 is thess initial state
 
 store.subscribe(() => {
     console.log("Store updated", store.getState());
 });
 
+// OBS: Each time we dispatch an action, the state duplicates
 store.dispatch({
     type: "ADD",
     payload: 100
