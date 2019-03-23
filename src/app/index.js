@@ -39,12 +39,12 @@ const reducer = (state, action) => {
             state = state + action.payload;
             break;
         case "SUBTRACT":
-            break;
+            state = state - action.payload;
     }
     return state;
 };
 
-const store = createStore(reducer, 3);
+const store = createStore(reducer, 1); // initial state
 
 store.subscribe(() => {
     console.log("Store updated", store.getState());
@@ -52,5 +52,15 @@ store.subscribe(() => {
 
 store.dispatch({
     type: "ADD",
-    payload: 10
+    payload: 100
+});
+
+store.dispatch({
+    type: "ADD",
+    payload: 22
+});
+
+store.dispatch({
+    type: "SUBTRACT",
+    payload: 80
 });
