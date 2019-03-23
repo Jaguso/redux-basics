@@ -35,24 +35,25 @@ import { createStore } from 'redux';
 
 const initialState = {
     result: 1, 
-    lastValues: [] //values that we add or substract
+    lastValues: [], //values that we add or substract
+    username: "Milk"
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case "ADD":
             state = {
-                ...state,
-                result: state.result + action.payload
+                ...state, //we have to leave this if there are values of initialState that we don't modify in this action
+                result: state.result + action.payload,
+                lastValues: [...state.lastValues, action.payload]
             };
-            state.lastValues.push(action.payload);
             break;
         case "SUBTRACT":
             state = {
                 ...state,
-                result: state.result - action.payload
+                result: state.result - action.payload,
+                lastValues: [...state.lastValues, action.payload]
             };
-            state.lastValues.push(action.payload);
             break;
     }
     return state;
