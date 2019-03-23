@@ -35,7 +35,7 @@ import { createStore } from 'redux';
 
 const initialState = {
     result: 1, 
-    lastValues: []
+    lastValues: [] //values that we add or substract
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,12 +45,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 result: state.result + action.payload
             };
+            state.lastValues.push(action.payload);
             break;
         case "SUBTRACT":
             state = {
                 ...state,
                 result: state.result - action.payload
             };
+            state.lastValues.push(action.payload);
+            break;
     }
     return state;
 };
