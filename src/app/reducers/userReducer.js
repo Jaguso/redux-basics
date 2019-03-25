@@ -3,7 +3,7 @@ const userReducer = (state = {
     age: 27
 }, action) => {
     switch (action.type) {
-        case "SET_NAME":
+        case "SET_NAME_FULFILLED":
             state = {
                 ...state, //we have to leave this if there are values of initialState that we don't modify in this action
                 name: action.payload
