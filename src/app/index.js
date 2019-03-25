@@ -31,7 +31,7 @@
 // render(<App />, window.document.getElementById('app'));
 
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 const mathReducer = (state = {
     result: 1, 
@@ -78,8 +78,12 @@ const userReducer = (state = {
     return state;
 };
 
+const myLogger = (store) => (next) => (action) => {
+    console.log("Logged Action: ", action);
+    next(action);
+};
 
-const store = createStore(combineReducers({mathReducer, userReducer})); // 1 is thess initial state
+const store = createStore(combineReducers({mathReducer, userReducer}), {}, applyMiddleware(myLogger)); // 1 is thess initial state
 
 store.subscribe(() => {
     console.log("Store updated", store.getState());
