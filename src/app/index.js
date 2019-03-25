@@ -31,15 +31,12 @@
 // render(<App />, window.document.getElementById('app'));
 
 
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-const initialState = {
+const mathReducer = (state = {
     result: 1, 
-    lastValues: [], //values that we add or substract
-    username: "Milk"
-};
-
-const reducer = (state = initialState, action) => {
+    lastValues: [] //values that we add or substract
+}, action) => {
     switch (action.type) {
         case "ADD":
             state = {
@@ -59,7 +56,30 @@ const reducer = (state = initialState, action) => {
     return state;
 };
 
-const store = createStore(reducer); // 1 is thess initial state
+
+const userReducer = (state = {
+    name: "Max",
+    age: 27
+}, action) => {
+    switch (action.type) {
+        case "SET_NAME":
+            state = {
+                ...state, //we have to leave this if there are values of initialState that we don't modify in this action
+                name: action.payload
+            };
+            break;
+        case "SET_AGE":
+            state = {
+                ...state,
+                age: action.payload
+            };
+            break;
+    }
+    return state;
+};
+
+
+const store = createStore(combineReducers({mathReducer, userReducer})); // 1 is thess initial state
 
 store.subscribe(() => {
     console.log("Store updated", store.getState());
@@ -79,4 +99,9 @@ store.dispatch({
 store.dispatch({
     type: "SUBTRACT",
     payload: 80
+});
+
+store.dispatch({
+    type: "SET_AGE",
+    payload: 30
 });
